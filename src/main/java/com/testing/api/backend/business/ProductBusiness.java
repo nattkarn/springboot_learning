@@ -11,14 +11,12 @@ import java.util.Objects;
 public class ProductBusiness {
 
     public String getProductById(String id)throws BaseException {
-
-        if (Objects.isNull(id)){
-            throw ProductException.idNull();
-        }
-
-        if(Objects.equals("1234",id)){
+        System.out.println("Test");
+        // TODO: get data from Database
+        if (Objects.equals("1234", id)) {
             throw ProductException.idNotFound();
         }
+
         return id;
     }
 }

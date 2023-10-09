@@ -1,5 +1,7 @@
 package com.testing.api.backend.config;
 
+import com.testing.api.backend.config.token.TokenfilterConfigurer;
+import com.testing.api.backend.service.TokenService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +15,13 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
+
+    private final TokenService tokenService;
+
+    public SecurityConfig(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -29,7 +38,9 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers(HttpMethod.POST, "/user/login", "/user/register").permitAll()
                                 .anyRequest().authenticated()
-                );
+
+                )
+                .apply(new TokenfilterConfigurer(tokenService));
 
         return http.build();
     }

@@ -9,8 +9,12 @@ import com.testing.api.backend.mapper.UserMapper;
 import com.testing.api.backend.model.LoginRequest;
 import com.testing.api.backend.model.RegisterRequest;
 import com.testing.api.backend.model.RegisterResponse;
+import com.testing.api.backend.service.TokenService;
 import com.testing.api.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Value;
+import com.testing.api.backend.util.SecurityUtil;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,10 +31,12 @@ public class UserBusiness {
 
     private final UserMapper userMapper;
 
+    private final TokenService tokenService;
 
-    public UserBusiness(UserService userService, UserMapper userMapper) {
+    public UserBusiness(UserService userService, UserMapper userMapper, TokenService tokenService) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.tokenService = tokenService;
     }
 
     public RegisterResponse register(RegisterRequest request) throws BaseException {
@@ -86,8 +92,23 @@ public class UserBusiness {
             throw UserException.loginpasswordincorrect();
         }
         //TODO: JWT(Json Web Token)
-        String token = "JWT(Json Web Token)";
-        return "";
+        return tokenService.tokenize(user);
+    }
+
+    public String refreshToken() throws BaseException {
+        Optional<String> opt = SecurityUtil.getCurrentUserId();
+        if (opt.isEmpty()){
+            throw UserException.unauthorized();
+        }
+        String userId = opt.get();
+
+        Optional<User> optUser = userService.findById(userId);
+        if (optUser.isEmpty()){
+            throw UserException.notfound();
+        }
+
+        User user = optUser.get();
+        return tokenService.tokenize(user);
     }
 
 }

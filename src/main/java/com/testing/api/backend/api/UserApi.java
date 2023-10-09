@@ -6,6 +6,7 @@ import com.testing.api.backend.exception.BaseException;
 import com.testing.api.backend.model.LoginRequest;
 import com.testing.api.backend.model.RegisterRequest;
 import com.testing.api.backend.model.RegisterResponse;
+import jakarta.persistence.Id;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,11 @@ public class UserApi {
         String response = business.uploadprofilePicture(file);
         return ResponseEntity.ok(response);
     }
-
+    @GetMapping("/refresh-token")
+    public ResponseEntity<String> refreshToken() throws BaseException {
+        String response = business.refreshToken();
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) throws BaseException {
