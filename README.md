@@ -1,0 +1,21 @@
+# springboot_learning
+
+CR.https://www.youtube.com/@NatthaponPinyo
+
+EP.1
+https://www.youtube.com/watch?v=cUivgstPP6U&t=3701s
+1. Setup IDE (IntelliJ IDEA)
+2. Create Spring Boot Project
+3. Run Spring Boot Project
+4. Verify Result
+5. Health Check
+6. REST Controller
+7. Error Adviser
+8. Exception Handler 
+
+EP.2
+https://www.youtube.com/watch?v=vcHEEh-WG9E&t=8638s
+1. Spring Security
+2. JPA 
+3. Unit Testing
+
