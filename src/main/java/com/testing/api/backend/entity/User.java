@@ -1,10 +1,11 @@
 package com.testing.api.backend.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 //Table Name
 @EqualsAndHashCode(callSuper = true)
@@ -21,5 +22,11 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 120)
     private String name;
 
+    private String CitizenId;
 
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private Social social;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Address> addresses;
 }
