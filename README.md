@@ -25,3 +25,6 @@ https://www.youtube.com/watch?v=8pqm9CCmWmQ&t=964s
 2. JWT (JSON Web Tokens)
 
 EP.4
+https://www.youtube.com/watch?v=wuMX7haEnac
+1. Email
+2. Job Schedule
