@@ -36,7 +36,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers(HttpMethod.POST, "/user/login", "/user/register").permitAll()
+//                                .requestMatchers(HttpMethod.POST, "/user/login", "/user/register", "/actuator/**").permitAll() //for best security use HttpMethod
+                                .requestMatchers("/user/login", "/user/register", "/actuator/**").permitAll()
                                 .anyRequest().authenticated()
 
                 )
