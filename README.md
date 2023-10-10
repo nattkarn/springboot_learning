@@ -19,3 +19,7 @@ https://www.youtube.com/watch?v=vcHEEh-WG9E&t=8638s
 2. JPA 
 3. Unit Testing
 
+EP.4
+https://www.youtube.com/watch?v=8pqm9CCmWmQ&t=964s
+1. JPA: Foreign Key
+2. JWT (JSON Web Tokens)
