@@ -32,4 +32,4 @@ https://www.youtube.com/watch?v=wuMX7haEnac
 EP.5
 https://www.youtube.com/watch?v=6l5FtUBPqZk&t=13s
 1. Websocket
-2. Frontend (Angular)
+2. Frontend (Angular) [https://github.com/nattkarn/Angular_Fontend]
