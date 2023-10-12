@@ -7,6 +7,7 @@ import com.testing.api.backend.exception.FileException;
 import com.testing.api.backend.exception.UserException;
 import com.testing.api.backend.mapper.UserMapper;
 import com.testing.api.backend.model.LoginRequest;
+import com.testing.api.backend.model.LoginResponse;
 import com.testing.api.backend.model.RegisterRequest;
 import com.testing.api.backend.model.RegisterResponse;
 import com.testing.api.backend.service.TokenService;
@@ -78,7 +79,7 @@ public class UserBusiness {
         return "";
     }
 
-    public String login(LoginRequest request) throws BaseException {
+    public LoginResponse login(LoginRequest request) throws BaseException {
 
         Optional<User> opt = userService.findByEmal(request.getEmail());
         if (opt.isEmpty()){
@@ -91,8 +92,10 @@ public class UserBusiness {
             //throw login fail, password incorrect
             throw UserException.loginpasswordincorrect();
         }
-        //TODO: JWT(Json Web Token)
-        return tokenService.tokenize(user);
+
+        LoginResponse response = new LoginResponse();
+        response.setToken(tokenService.tokenize(user));
+        return response;
     }
 
     public String refreshToken() throws BaseException {

@@ -4,13 +4,16 @@ package com.testing.api.backend.api;
 import com.testing.api.backend.business.UserBusiness;
 import com.testing.api.backend.exception.BaseException;
 import com.testing.api.backend.model.LoginRequest;
+import com.testing.api.backend.model.LoginResponse;
 import com.testing.api.backend.model.RegisterRequest;
 import com.testing.api.backend.model.RegisterResponse;
 import jakarta.persistence.Id;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+@Log4j2
 @RestController
 @RequestMapping("/user")
 public class UserApi {
@@ -43,11 +46,13 @@ public class UserApi {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) throws BaseException {
-        String response = business.login(request);
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) throws BaseException {
+        LoginResponse response = business.login(request);
         return ResponseEntity.ok(response);
 
     }
+
+
 
 
 }
