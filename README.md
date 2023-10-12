@@ -28,3 +28,8 @@ EP.4
 https://www.youtube.com/watch?v=wuMX7haEnac
 1. Email
 2. Job Schedule
+
+EP.5
+https://www.youtube.com/watch?v=6l5FtUBPqZk&t=13s
+1. Websocket
+2. Frontend (Angular)
