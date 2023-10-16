@@ -25,8 +25,7 @@ public class SecurityConfig {
             "/user/login",
             "/user/register",
             "/actuator/**",
-            "/socket/**",
-            "/chat/**" //TODO: remove from config
+            "/socket/**"
     };
 
     public SecurityConfig(TokenService tokenService) {
@@ -43,15 +42,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
-//                .cors(cors -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
-//                .cors(cors -> cors.disable())
+                .cors(cors -> cors.configurationSource(request -> corsConfiguration())) // Use the centralized CORS config
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorizeRequests ->
-                                authorizeRequests
-//                                .requestMatchers(HttpMethod.POST, "/user/login", "/user/register", "/actuator/**").permitAll() //for best security use HttpMethod
-                                        .requestMatchers(PUBLIC).permitAll()
-                                        .anyRequest().authenticated()
-
+                        authorizeRequests
+                                .requestMatchers(PUBLIC).permitAll()
+                                .anyRequest().authenticated()
                 )
                 .apply(new TokenfilterConfigurer(tokenService));
 
@@ -59,19 +55,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    public CorsConfiguration corsConfiguration() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200");
-//        config.addAllowedOriginPattern(String.valueOf(Arrays.asList("http://localhost*")));
-        config.addAllowedHeader("*");
+        config.addAllowedOrigin("http://*");
+        config.addAllowedHeader("*"); // Allow all headers
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("POST");
         config.addAllowedMethod("GET");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
-        source.registerCorsConfiguration("/**", config);
+        return config;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration()); // Use the centralized CORS config
         return new CorsFilter(source);
     }
 
