@@ -1,9 +1,14 @@
 package com.testing.api.backend.util;
 
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,4 +36,21 @@ public class SecurityUtil {
 
         return Optional.of(userId);
     }
+
+    public static String generateToken(){
+        List<CharacterRule> rules = Arrays.asList(
+
+                new CharacterRule(EnglishCharacterData.UpperCase, 10),
+                new CharacterRule(EnglishCharacterData.LowerCase, 10),
+                new CharacterRule(EnglishCharacterData.Digit, 10)
+//                new CharacterRule(EnglishCharacterData.Special, 5)
+        );
+
+        PasswordGenerator generator = new PasswordGenerator();
+
+// Generated password is 12 characters long, which complies with policy
+        String password = generator.generatePassword(30, rules);
+        return password;
+    }
+
 }

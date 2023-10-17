@@ -5,9 +5,12 @@ import com.testing.api.backend.entity.User;
 import com.testing.api.backend.exception.BaseException;
 import com.testing.api.backend.exception.UserException;
 import com.testing.api.backend.repository.UserRepository;
+import com.testing.api.backend.util.SecurityUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,7 +27,7 @@ public class UserService {
     }
 
 
-    public User create(String email, String password, String name) throws BaseException {
+    public User create(String email, String password, String name,String token,Date tokenexpiredate) throws BaseException {
         //validate
         if (Objects.isNull(email)) {
             throw UserException.createemailNull();
@@ -49,12 +52,21 @@ public class UserService {
         entity.setEmail(email);
         entity.setPassword(passwordEncoder.encode(password));
         entity.setName(name);
+        entity.setToken(token);
+        entity.setTokenExpire(tokenexpiredate);
+
+
+
         return repository.save(entity);
     }
+
+
+
+
 // not saved
-//    public User Update(User user){
-//        return repository.save(user);
-//    }
+    public User update(User user){
+        return repository.save(user);
+    }
 
     public User updateName(String id,String name) throws BaseException {
         Optional<User> opt = repository.findById(id);
@@ -81,6 +93,10 @@ public class UserService {
 
     public Optional<User> findById(String Id){
         return repository.findById(Id);
+    }
+
+    public Optional<User> findByToken(String token){
+        return repository.findByToken(token);
     }
 
     public boolean matchPassword(String rawPassword,String encodedPassword){

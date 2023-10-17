@@ -3,12 +3,9 @@ package com.testing.api.backend.api;
 
 import com.testing.api.backend.business.UserBusiness;
 import com.testing.api.backend.exception.BaseException;
-import com.testing.api.backend.model.LoginRequest;
-import com.testing.api.backend.model.LoginResponse;
-import com.testing.api.backend.model.RegisterRequest;
-import com.testing.api.backend.model.RegisterResponse;
-import jakarta.persistence.Id;
+import com.testing.api.backend.model.*;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,6 +47,18 @@ public class UserApi {
         LoginResponse response = business.login(request);
         return ResponseEntity.ok(response);
 
+    }
+
+    @PostMapping("/activate")
+    public ResponseEntity<ActivateResponse> activate (@RequestBody ActivateRequest request) throws BaseException {
+        ActivateResponse reponse = business.activate(request);
+        return ResponseEntity.ok(reponse);
+    }
+
+    @PostMapping("/resend-avtivation-email")
+    public ResponseEntity<Void> resendActivationEmail (@RequestBody ResendActivationEmailRequest request) throws BaseException {
+        business.resendActivationEmail(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 

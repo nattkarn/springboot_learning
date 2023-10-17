@@ -25,7 +25,9 @@ public class SecurityConfig {
             "/user/login",
             "/user/register",
             "/actuator/**",
-            "/socket/**"
+            "/socket/**",
+            "/user/activate",
+            "/user/resend-avtivation-email"
     };
 
     public SecurityConfig(TokenService tokenService) {
@@ -58,7 +60,7 @@ public class SecurityConfig {
     public CorsConfiguration corsConfiguration() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://*");
+        config.addAllowedOrigin("http://localhost:4200");
         config.addAllowedHeader("*"); // Allow all headers
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("POST");
