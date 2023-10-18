@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+
 //Table Name
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "m_Address")
-public class Address extends BaseEntity {
+public class Address extends BaseEntity implements Serializable {
 
 
 

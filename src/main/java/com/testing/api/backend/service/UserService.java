@@ -5,19 +5,22 @@ import com.testing.api.backend.entity.User;
 import com.testing.api.backend.exception.BaseException;
 import com.testing.api.backend.exception.UserException;
 import com.testing.api.backend.repository.UserRepository;
-import com.testing.api.backend.util.SecurityUtil;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class UserService {
 
-    private final  UserRepository repository;
+    private final UserRepository repository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -27,7 +30,7 @@ public class UserService {
     }
 
 
-    public User create(String email, String password, String name,String token,Date tokenexpiredate) throws BaseException {
+    public User create(String email, String password, String name, String token, Date tokenexpiredate) throws BaseException {
         //validate
         if (Objects.isNull(email)) {
             throw UserException.createemailNull();
@@ -43,7 +46,7 @@ public class UserService {
 
 
         //verify
-        if (repository.existsByEmail(email)){
+        if (repository.existsByEmail(email)) {
             throw UserException.createemailDuplicate();
         }
 
@@ -56,22 +59,21 @@ public class UserService {
         entity.setTokenExpire(tokenexpiredate);
 
 
-
         return repository.save(entity);
     }
 
 
-
-
-// not saved
-    public User update(User user){
+    // not saved
+//    @CachePut(value = "user", key = "#id")
+    public User update(User user) {
         return repository.save(user);
     }
 
-    public User updateName(String id,String name) throws BaseException {
+    @CachePut(value = "user", key = "#id")
+    public User updateName(String id, String name) throws BaseException {
         Optional<User> opt = repository.findById(id);
 
-        if (opt.isEmpty()){
+        if (opt.isEmpty()) {
             throw UserException.notfound();
         }
 
@@ -80,26 +82,34 @@ public class UserService {
         return repository.save(user);
     }
 
-    public void deleteById(String id){
+
+    @CacheEvict(value = "user", key = "#id")
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 
 
+    @CacheEvict(value = "user", allEntries = true)
+    public void deleteAll() {
+//        repository.deleteAll();
+    }
 
 
-    public Optional<User> findByEmal(String email){
+    public Optional<User> findByEmal(String email) {
         return repository.findByEmail(email);
     }
 
-    public Optional<User> findById(String Id){
-        return repository.findById(Id);
+    @Cacheable(value = "user", key = "#id", unless = "#result == null")
+    public Optional<User> findById(String id) {
+        log.info("Load user from DB: " + id);
+        return repository.findById(id);
     }
 
-    public Optional<User> findByToken(String token){
+    public Optional<User> findByToken(String token) {
         return repository.findByToken(token);
     }
 
-    public boolean matchPassword(String rawPassword,String encodedPassword){
+    public boolean matchPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 

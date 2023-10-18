@@ -22,6 +22,24 @@ public class UserApi {
     }
 
 
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfile> getMyUserProfiel() throws BaseException {
+        UserProfile respone = business.getMyUserProfiel();
+        return ResponseEntity.ok(respone);
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<UserProfile> updateMyUserProfiel(@RequestBody UpdateUserProfileRequest request) throws BaseException {
+        UserProfile respone = business.updateMyUserProfiel(request);
+        return ResponseEntity.ok(respone);
+    }
+
+//    @DeleteMapping("/test-delete")
+//    public ResponseEntity<Void> testDeleteMyAccount() throws BaseException {
+//        business.testDeleteMyAccount();
+//        return ResponseEntity.ok().build();
+//    }
+
     @PostMapping
     @RequestMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) throws BaseException {
@@ -36,6 +54,7 @@ public class UserApi {
         String response = business.uploadprofilePicture(file);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/refresh-token")
     public ResponseEntity<String> refreshToken() throws BaseException {
         String response = business.refreshToken();
@@ -50,18 +69,16 @@ public class UserApi {
     }
 
     @PostMapping("/activate")
-    public ResponseEntity<ActivateResponse> activate (@RequestBody ActivateRequest request) throws BaseException {
+    public ResponseEntity<ActivateResponse> activate(@RequestBody ActivateRequest request) throws BaseException {
         ActivateResponse reponse = business.activate(request);
         return ResponseEntity.ok(reponse);
     }
 
     @PostMapping("/resend-avtivation-email")
-    public ResponseEntity<Void> resendActivationEmail (@RequestBody ResendActivationEmailRequest request) throws BaseException {
+    public ResponseEntity<Void> resendActivationEmail(@RequestBody ResendActivationEmailRequest request) throws BaseException {
         business.resendActivationEmail(request);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-
 
 
 }

@@ -16,6 +16,15 @@ spring:
           auth: true
           starttls:
             enable: true
+  redis:
+    lettuce:
+      client:
+        url: redis://localhost:6379/0
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000
+
 
   jpa:
     hibernate:

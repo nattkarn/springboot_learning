@@ -13,14 +13,11 @@ import com.testing.api.backend.util.SecurityUtil;
 import io.netty.util.internal.StringUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Calendar;
+import java.util.*;
 
 @Service
 @Log4j2
@@ -64,7 +61,7 @@ public class UserBusiness {
         }
         User user = opt.get();
 
-        if (user.isActivated()){
+        if (user.isActivated()) {
             throw UserException.activationAlready();
         }
 
@@ -87,17 +84,17 @@ public class UserBusiness {
     }
 
     public void resendActivationEmail(ResendActivationEmailRequest request) throws BaseException {
-        String email = request.getEmail();
-        if (StringUtil.isNullOrEmpty(email)){
-            throw UserException.resendemailnoemail();
+        String token = request.getToken();
+        if (StringUtil.isNullOrEmpty(token)) {
+            throw UserException.resendemailnotoken();
         }
-        Optional<User> opt = userService.findByEmal(email);
-        if (opt.isEmpty()){
-            throw UserException.resendactivationfail();
+        Optional<User> opt = userService.findByToken(token);
+        if (opt.isEmpty()) {
+            throw UserException.resendactivationtokennotfound();
         }
         User user = opt.get();
 
-        if(user.isActivated()){
+        if (user.isActivated()) {
             throw UserException.activationAlready();
         }
 
@@ -108,7 +105,7 @@ public class UserBusiness {
 
     }
 
-    private Date nextXMinute(int minute){
+    private Date nextXMinute(int minute) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, minute);
         return calendar.getTime();
@@ -198,6 +195,58 @@ public class UserBusiness {
 
         User user = optUser.get();
         return tokenService.tokenize(user);
+    }
+
+    public UserProfile getMyUserProfiel() throws BaseException {
+        Optional<String> opt = SecurityUtil.getCurrentUserId();
+        if (opt.isEmpty()) {
+            throw UserException.unauthorized();
+        }
+        String userId = opt.get();
+
+        Optional<User> optUser = userService.findById(userId);
+        if (optUser.isEmpty()) {
+            throw UserException.notfound();
+        }
+
+        return userMapper.toUserProfile(optUser.get());
+
+
+    }
+
+    public UserProfile updateMyUserProfiel(UpdateUserProfileRequest request) throws BaseException {
+        Optional<String> opt = SecurityUtil.getCurrentUserId();
+        if (opt.isEmpty()) {
+            throw UserException.unauthorized();
+        }
+        String userId = opt.get();
+
+
+        //varidate Data
+        if (ObjectUtils.isEmpty(request.getName())) {
+            throw UserException.updatenamenull();
+        }
+        User user = userService.updateName(userId, request.getName());
+
+        return userMapper.toUserProfile(user);
+
+
+    }
+
+
+
+
+    //TODO: Tobe Deleted
+    public  void testDeleteMyAccount() throws BaseException {
+        Optional<String> opt = SecurityUtil.getCurrentUserId();
+
+        if (opt.isEmpty()){
+            throw UserException.unauthorized();
+        }
+
+        String userId = opt.get();
+        userService.deleteById((userId));
+
     }
 
 }

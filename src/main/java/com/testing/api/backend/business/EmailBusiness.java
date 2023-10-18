@@ -36,7 +36,7 @@ public class EmailBusiness {
             throw EmailException.templateNotFound();
         }
         log.info("Token: "+ token);
-        String finallink = "http://192.168.1.102:8080/activate/" + token;
+        String finallink = "http://localhost:4200/activate/" + token;
         html = html.replace("${P_NAME}", name);
         html = html.replace("${P_LINK}",finallink);
 

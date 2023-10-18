@@ -4,7 +4,7 @@ package com.testing.api.backend.model;
 import lombok.Data;
 
 @Data
-public class ResendActivationEmailRequest {
+public class UpdateUserProfileRequest {
+    private String name;
 
-    private String token;
 }
