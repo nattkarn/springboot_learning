@@ -41,7 +41,7 @@ https://www.youtube.com/watch?v=QK9LdHGdbHc
 2. Security (Guard)
 3. HTTP Interceptor
 4. Routing
-(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend]
+(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend],
 
 EP.7
 https://www.youtube.com/watch?v=EHW64qm_OQI
@@ -51,9 +51,9 @@ https://www.youtube.com/watch?v=EHW64qm_OQI
 4. Custom Kafka Producer & Consumer
 5. Microservices (Backend & Email)
 6. Activation Email
-(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend]
-(springboot_learning_email):[https://github.com/nattkarn/springboot_learning_email]
-(springboot_learning_common):[https://github.com/nattkarn/springboot_learning_common]
+(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend],
+(springboot_learning_email):[https://github.com/nattkarn/springboot_learning_email],
+(springboot_learning_common):[https://github.com/nattkarn/springboot_learning_common],
 
 EP.8
 https://www.youtube.com/watch?v=Sqdi8zD6VpU
@@ -63,6 +63,6 @@ https://www.youtube.com/watch?v=Sqdi8zD6VpU
 4. ลบ Cache
 5. Frontend (Angular) :  Activate Account (carry from EP 7)
 6. Frontend (Angular) : i18n
-(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend]
-(springboot_learning_email):[https://github.com/nattkarn/springboot_learning_email]
-(springboot_learning_common):[https://github.com/nattkarn/springboot_learning_common]
+(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend],
+(springboot_learning_email):[https://github.com/nattkarn/springboot_learning_email],
+(springboot_learning_common):[https://github.com/nattkarn/springboot_learning_common],
