@@ -32,4 +32,37 @@ https://www.youtube.com/watch?v=wuMX7haEnac
 EP.5
 https://www.youtube.com/watch?v=6l5FtUBPqZk&t=13s
 1. Websocket
-2. Frontend (Angular) [https://github.com/nattkarn/Angular_Fontend]
+2. Frontend (Angular) 
+[https://github.com/nattkarn/Angular_Fontend]
+
+EP.6
+https://www.youtube.com/watch?v=QK9LdHGdbHc
+1. CSS (Bootstrap,)
+2. Security (Guard)
+3. HTTP Interceptor
+4. Routing
+(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend]
+
+EP.7
+https://www.youtube.com/watch?v=EHW64qm_OQI
+1. Basic Queue with Kafka
+2. Kafka Producer
+3. Kafka Consumer
+4. Custom Kafka Producer & Consumer
+5. Microservices (Backend & Email)
+6. Activation Email
+(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend]
+(springboot_learning_email):[https://github.com/nattkarn/springboot_learning_email]
+(springboot_learning_common):[https://github.com/nattkarn/springboot_learning_common]
+
+EP.8
+https://www.youtube.com/watch?v=Sqdi8zD6VpU
+1. การรัน Redis ใน Local Environment
+2. สร้าง Cache
+3. แก้ไข Cache
+4. ลบ Cache
+5. Frontend (Angular) :  Activate Account (carry from EP 7)
+6. Frontend (Angular) : i18n
+(Angular_Fontend):[https://github.com/nattkarn/Angular_Fontend]
+(springboot_learning_email):[https://github.com/nattkarn/springboot_learning_email]
+(springboot_learning_common):[https://github.com/nattkarn/springboot_learning_common]
