@@ -27,7 +27,8 @@ public class SecurityConfig {
             "/actuator/**",
             "/socket/**",
             "/user/activate",
-            "/user/resend-avtivation-email"
+            "/user/resend-avtivation-email",
+            "/**"
     };
 
     private final String[] ALLOW_LIST = {
