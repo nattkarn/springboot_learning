@@ -30,6 +30,12 @@ public class SecurityConfig {
             "/user/resend-avtivation-email"
     };
 
+    private final String[] ALLOW_LIST = {
+            "http://192.168.1.163:3000",
+            "http://192.168.1.102:4200",
+            "http://localhost:4200",
+            "http://localhost:3000"
+    };
     public SecurityConfig(TokenService tokenService) {
         this.tokenService = tokenService;
     }
@@ -60,7 +66,8 @@ public class SecurityConfig {
     public CorsConfiguration corsConfiguration() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("http://192.168.1.163:3000");
+//        config.addAllowedOrigin(Arrays.toString(ALLOW_LIST));
         config.addAllowedHeader("*"); // Allow all headers
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("POST");

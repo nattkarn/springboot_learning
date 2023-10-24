@@ -6,9 +6,6 @@ import com.testing.api.backend.exception.BaseException;
 import com.testing.api.backend.exception.UserException;
 import com.testing.api.backend.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +66,7 @@ public class UserService {
         return repository.save(user);
     }
 
-    @CachePut(value = "user", key = "#id")
+    //    @CachePut(value = "user", key = "#id")
     public User updateName(String id, String name) throws BaseException {
         Optional<User> opt = repository.findById(id);
 
@@ -83,13 +80,13 @@ public class UserService {
     }
 
 
-    @CacheEvict(value = "user", key = "#id")
+    //    @CacheEvict(value = "user", key = "#id")
     public void deleteById(String id) {
         repository.deleteById(id);
     }
 
 
-    @CacheEvict(value = "user", allEntries = true)
+    //    @CacheEvict(value = "user", allEntries = true)
     public void deleteAll() {
 //        repository.deleteAll();
     }
@@ -99,7 +96,7 @@ public class UserService {
         return repository.findByEmail(email);
     }
 
-    @Cacheable(value = "user", key = "#id", unless = "#result == null")
+    //    @Cacheable(value = "user", key = "#id", unless = "#result == null")
     public Optional<User> findById(String id) {
         log.info("Load user from DB: " + id);
         return repository.findById(id);

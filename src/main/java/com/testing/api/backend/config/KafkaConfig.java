@@ -1,7 +1,8 @@
 package com.testing.api.backend.config;
 
 
-import com.testing.api.common.EmailRequest;
+
+import com.testing.api.backend.service.EmailRequest;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ public class KafkaConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String server;
+
     @Bean
     public Map<String, Object> producerConfigs() {
         Map<String, Object> map = new HashMap<>();
